@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <script type="text/javascript" src="vue.js"></script>
+
+  <script type="text/javascript" src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="//unpkg.com/tether@latest/dist/css/tether.min.css">
+  <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css">
+  <script type="text/javascript" src="//unpkg.com/tether@latest/dist/js/tether.min.js"></script>
+  <script type="text/javascript" src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    
+  <script type="text/javascript" src="app.js"></script>
+  <link rel="stylesheet"  type="text/css" href="style.css">
+</head>
+
+<body>
+  <div id="app">
+  <b-jumbotron header="E/M Helper" lead="Medical Decision Making Complexity">
+    <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p>
+    <template>
+      <b-table @row-clicked="addPoints" striped hover :items="problemPoints" :fields="fields"></b-table>
+    </template>
+    <b-row align-h="end">
+      <b-col cols="2" id="totalCol">
+        <p> Total points: {{ points }}</p>
+      </b-col>
+    </b-row>
+  </b-jumbotron>
+</div>
+
+</body>
+
+</html>
+
+
