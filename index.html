@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta name="robots" content="noindex, nofollow">
+  <equired meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="googlebot" content="noindex, nofollow">
 
   <script type="text/javascript" src="vue.js"></script>
@@ -19,19 +20,35 @@
 </head>
 
 <body>
-  <div id="app">
-  <b-jumbotron header="E/M Helper" lead="Medical Decision Making Complexity">
-    <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p>
-    <template>
-      <b-table @row-clicked="addPoints" striped hover :items="problemPoints" :fields="fields"></b-table>
-    </template>
-    <b-row align-h="end">
-      <b-col cols="2" id="totalCol">
-        <p> Total points: {{ points }}</p>
-      </b-col>
-    </b-row>
-  </b-jumbotron>
-</div>
+  <div>
+    <b-container>
+      <div class="h-50 p-4"></div>
+      <div class="w-50 p-3 mx-auto rounded" id="app">
+      <b-row>
+        <b-col sm="auto" > <h1>E/M Helper</h1></b-col>
+        <b-col offset-sm="1">
+          <b-row> <p class="lead">Medical decision making complexity</p></b-row>
+          <b-row> <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p></b-row>
+        </b-col>
+      </b-row>
+      <template>
+        <b-table @row-clicked="addPoints" striped hover :items="problemPoints" :fields="fields"></b-table>
+      </template>
+      <b-row class="mr-2 ml-2 p-2">
+        <table class="table" id="totals">
+          <tbody>
+            <tr>
+              <td>Problem Points</td>
+              <td>Data Points</td>
+              <td>Risk</td>
+              <td>Total Points</td>
+            </tr>
+          </tbody>
+        </table>
+        </b-row>
+      </div>
+    </b-container>
+  </div>
 
 </body>
 

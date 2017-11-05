@@ -1,24 +1,4 @@
-window.onload=function() {
-
-  var vm = new Vue({
-    el: '#app',
-    data: {
-      points: 0,
-      fields: ['category', 'points'],
-      problemPoints: problemPointsData
-    },
-    methods: {
-      addPoints(record, index) {
-        record.instancePoints = record.instancePoints + record.points
-          if (record.instancePoints <= record.allowedPoints) {
-            this.points = this.points + record.points
-          }
-      }
-    }
-  })
-}
-
-var problemPointsData = [
+problemPointsData = [
 {
   category: 'Self-limited or minor (max 2)',
   points: 1,
@@ -49,3 +29,32 @@ var problemPointsData = [
   instancePoints: 0,
   allowedPoints: 5
 }]
+
+
+window.onload=function() {
+  var moderateComplexityCriteria = [
+  {
+    problemPoints: 3,
+    dataPoints: 3,
+    risk: "Moderate"
+  }]
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      points: 0,
+      fields: ['category', 'points'],
+      problemPoints: problemPointsData,
+      codeCriteria: moderateComplexityCriteria
+    },
+    methods: {
+      addPoints(record, index) {
+        record.instancePoints = record.instancePoints + record.points
+          if (record.instancePoints <= record.allowedPoints) {
+            this.points = this.points + record.points
+          }
+      }
+    }
+  })
+}
+
