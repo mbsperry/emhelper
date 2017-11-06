@@ -1,3 +1,32 @@
+window.onload=function() {
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      points: 0,                        // Tracks points for each category
+      fields: ['category', 'points'],   // Only show these fields
+      problemPoints: problemPointsData,
+      codeCriteria: moderateComplexityCriteria, 
+      metProbCriteria: false,           // Toggle the color on the indicator table
+      metDataCriteria: false,
+      metRiskCriteria: false,
+    },
+    methods: {
+      addPoints(record, index) {
+        record.instancePoints = record.instancePoints + record.points
+          if (record.instancePoints <= record.allowedPoints) {
+            this.points = this.points + record.points
+              if (this.points >= this.codeCriteria.problemPoints) {
+                this.metProbCriteria = true
+              }
+          }
+      }
+    }
+  })
+}
+
+/* ************** Data ****************** */
+
 problemPointsData = [
 {
   category: 'Self-limited or minor (max 2)',
@@ -30,31 +59,9 @@ problemPointsData = [
   allowedPoints: 5
 }]
 
-
-window.onload=function() {
-  var moderateComplexityCriteria = [
-  {
-    problemPoints: 3,
-    dataPoints: 3,
-    risk: "Moderate"
-  }]
-
-  var vm = new Vue({
-    el: '#app',
-    data: {
-      points: 0,
-      fields: ['category', 'points'],
-      problemPoints: problemPointsData,
-      codeCriteria: moderateComplexityCriteria
-    },
-    methods: {
-      addPoints(record, index) {
-        record.instancePoints = record.instancePoints + record.points
-          if (record.instancePoints <= record.allowedPoints) {
-            this.points = this.points + record.points
-          }
-      }
-    }
-  })
+var moderateComplexityCriteria = {
+  problemPoints: 3,
+  dataPoints: 3,
+  risk: "Moderate",
+  catRequired: 2
 }
-

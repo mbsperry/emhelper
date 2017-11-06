@@ -16,11 +16,7 @@ div#totalCol {
   background-color: rgb(0, 127, 247);
 }
 
-#totals {
-  border: 1px solid black;
+.table-fit {
+  white-space: nowrap;
+  width: 1%;
 }
-
-.table {
-  border: 1px solid rgb(233,236,239);
-}
-

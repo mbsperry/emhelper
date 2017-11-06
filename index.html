@@ -22,7 +22,7 @@
 <body>
   <div>
     <b-container>
-      <div class="h-50 p-4"></div>
+      <div style="height: 75px;"></div>
       <div class="w-50 p-3 mx-auto rounded" id="app">
       <b-row>
         <b-col sm="auto" > <h1>E/M Helper</h1></b-col>
@@ -34,18 +34,21 @@
       <template>
         <b-table @row-clicked="addPoints" striped hover :items="problemPoints" :fields="fields"></b-table>
       </template>
-      <b-row class="mr-2 ml-2 p-2">
-        <table class="table" id="totals">
+      <b-row class="ml-2" align-h="end"><span>Total points {{ points }}</span></b-row>
+      <b-row>
+        <b-col offset="1">
+        <table class="table table-fit">
           <tbody>
             <tr>
-              <td>Problem Points</td>
-              <td>Data Points</td>
-              <td>Risk</td>
-              <td>Total Points</td>
+              <td v-bind:class="{ 'table-success': metProbCriteria, 'table-danger': !metProbCriteria }">{{ codeCriteria.problemPoints }} Problem Points</td>
+              <td v-bind:class="{ 'table-success': metDataCriteria, 'table-danger': !metDataCriteria }">{{ codeCriteria.dataPoints }} Data Points</td>
+              <td v-bind:class="{ 'table-success': metRiskCriteria, 'table-danger': !metRiskCriteria }">{{ codeCriteria.risk }} Risk</td>
             </tr>
           </tbody>
         </table>
+        </b-col>
         </b-row>
+        <b-row align-h="center"><p><small class="text-muted">***Requires {{ codeCriteria.catRequired }} out 3***</small></p></b-row>
       </div>
     </b-container>
   </div>
