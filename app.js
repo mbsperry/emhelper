@@ -10,6 +10,7 @@ window.onload=function() {
       metProbCriteria: false,           // Toggle the color on the indicator table
       metDataCriteria: false,
       metRiskCriteria: false,
+      tableCollapse: true,
     },
     methods: {
       addPoints(record, index) {
@@ -20,6 +21,15 @@ window.onload=function() {
                 this.metProbCriteria = true
               }
           }
+      },
+
+      dataClick() {
+        this.tableCollapse = !this.tableCollapse
+        var resetTable = function() {
+          this.problemPoints = dataPointsData
+        }
+
+        setTimeout(resetTable.bind(this), 100)
       }
     }
   })
@@ -57,6 +67,50 @@ problemPointsData = [
   points: 4,
   instancePoints: 0,
   allowedPoints: 5
+}]
+
+var dataPointsData = [
+{
+  category: "Review or order clinic lab tests",
+  points: 1,
+  instancePoints: 0,
+  allowedPoints: 1
+},
+{
+  category: 'Review or order radiology test',
+  points: 1,
+  instancePoints: 0,
+  allowedPoints: 1
+},
+{
+  category: 'Review or order medicine test (PFTs, EKG, echo)',
+  points: 1,
+  instancePoints: 0,
+  allowedPoints: 1
+},
+{
+  category: 'Discuss with performing physician',
+  points: 1,
+  instancePoints: 0,
+  allowedPoints: 1
+},
+{
+  category: 'Independent review of image, tracing, specimen',
+  points: 2,
+  instancePoints: 0,
+  allowedPoints: 2
+},
+{
+  category: 'Decision to obtain old records',
+  points: 1,
+  instancePoints: 0,
+  allowedPoints: 1
+},
+{
+  category: 'Review and summation of old records',
+  points: 2,
+  instancePoints: 0,
+  allowedPoints: 2
 }]
 
 var moderateComplexityCriteria = {

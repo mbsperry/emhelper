@@ -1,59 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <equired meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="googlebot" content="noindex, nofollow">
+  <head>
+    <equired meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="googlebot" content="noindex, nofollow">
 
-  <script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="vue.js"></script>
 
-  <script type="text/javascript" src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
-  <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="//unpkg.com/tether@latest/dist/css/tether.min.css">
-  <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css">
-  <script type="text/javascript" src="//unpkg.com/tether@latest/dist/js/tether.min.js"></script>
-  <script type="text/javascript" src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-    
-  <script type="text/javascript" src="app.js"></script>
-  <link rel="stylesheet"  type="text/css" href="style.css">
-</head>
+    <script type="text/javascript" src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//unpkg.com/tether@latest/dist/css/tether.min.css">
+    <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css">
+    <script type="text/javascript" src="//unpkg.com/tether@latest/dist/js/tether.min.js"></script>
+    <script type="text/javascript" src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 
-<body>
-  <div>
-    <b-container>
-      <div style="height: 75px;"></div>
-      <div class="w-50 p-3 mx-auto rounded" id="app">
-      <b-row>
-        <b-col sm="auto" > <h1>E/M Helper</h1></b-col>
-        <b-col offset-sm="1">
-          <b-row> <p class="lead">Medical decision making complexity</p></b-row>
-          <b-row> <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p></b-row>
-        </b-col>
-      </b-row>
-      <template>
-        <b-table @row-clicked="addPoints" striped hover :items="problemPoints" :fields="fields"></b-table>
-      </template>
-      <b-row class="ml-2" align-h="end"><span>Total points {{ points }}</span></b-row>
-      <b-row>
-        <b-col offset="1">
-        <table class="table table-fit">
-          <tbody>
-            <tr>
-              <td v-bind:class="{ 'table-success': metProbCriteria, 'table-danger': !metProbCriteria }">{{ codeCriteria.problemPoints }} Problem Points</td>
-              <td v-bind:class="{ 'table-success': metDataCriteria, 'table-danger': !metDataCriteria }">{{ codeCriteria.dataPoints }} Data Points</td>
-              <td v-bind:class="{ 'table-success': metRiskCriteria, 'table-danger': !metRiskCriteria }">{{ codeCriteria.risk }} Risk</td>
-            </tr>
-          </tbody>
-        </table>
-        </b-col>
-        </b-row>
-        <b-row align-h="center"><p><small class="text-muted">***Requires {{ codeCriteria.catRequired }} out 3***</small></p></b-row>
-      </div>
-    </b-container>
-  </div>
+    <script type="text/javascript" src="app.js"></script>
+    <link rel="stylesheet"  type="text/css" href="style.css">
+  </head>
 
-</body>
+  <body>
+    <div>
+      <b-container>
+        <div style="height: 75px;"></div>
+        <div class="w-50 p-3 mx-auto rounded" id="app">
+          <b-row>
+            <b-col sm="auto" > <h1>E/M Helper</h1></b-col>
+            <b-col offset-sm="1">
+              <b-row> <p class="lead">Medical decision making complexity</p></b-row>
+              <b-row> <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p></b-row>
+            </b-col>
+          </b-row>
+          <b-row align-h="center" class="p-3">
+            <b-collapse v-model="tableCollapse" class="m-0 p-0" id="categoryTableCollapse">
+              <template>
+                <b-table @row-clicked="addPoints" striped hover :items="problemPoints" :fields="fields"></b-table>
+              </template>
+            </b-collapse>
+          </b-row>
+          <b-row class="pr-3" align-h="end"><p>Total points {{ points }}</p></b-row>
+          <b-row align-h="center">
+            <table class="table table-fit">
+              <tbody>
+                <tr>
+                  <td v-bind:class="{ 'table-success': metProbCriteria, 'table-danger': !metProbCriteria }">{{ codeCriteria.problemPoints }} Problem Points</td>
+                  <td @click="dataClick" v-bind:class="{ 'table-success': metDataCriteria, 'table-danger': !metDataCriteria }">{{ codeCriteria.dataPoints }} Data Points</td>
+                  <td v-bind:class="{ 'table-success': metRiskCriteria, 'table-danger': !metRiskCriteria }">{{ codeCriteria.risk }} Risk</td>
+                </tr>
+              </tbody>
+            </table>
+          </b-row>
+          <b-row align-h="center"><p><small class="text-muted">***Requires {{ codeCriteria.catRequired }} out 3***</small></p></b-row>
+        </div>
+      </b-container>
+    </div>
+
+  </body>
 
 </html>
 
