@@ -32,11 +32,20 @@
             </b-col>
           </b-row>
           <b-row align-h="center" class="p-3">
-            <b-collapse v-model="tableCollapse" class="m-0 p-0" id="categoryTableCollapse">
+            <b-tabs style="width: 100%">
+              <b-tab title="Problems" active>
               <template>
                 <b-table @row-clicked="addPoints" striped hover :items="problemPoints" :fields="fields"></b-table>
               </template>
-            </b-collapse>
+              </b-tab>
+              <b-tab title="Data">
+              <template>
+                <b-table @row-clicked="addPoints" striped hover :items="dataPoints" :fields="fields"></b-table>
+              </template>
+              </b-tab>
+              <b-tab title="Risk">
+              </b-tab>
+            </b-tabs>
           </b-row>
           <b-row class="pr-3" align-h="end"><p>Total points {{ points }}</p></b-row>
           <b-row align-h="center">

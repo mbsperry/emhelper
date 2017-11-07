@@ -6,6 +6,7 @@ window.onload=function() {
       points: 0,                        // Tracks points for each category
       fields: ['category', 'points'],   // Only show these fields
       problemPoints: problemPointsData,
+      dataPoints: dataPointsData,
       codeCriteria: moderateComplexityCriteria, 
       metProbCriteria: false,           // Toggle the color on the indicator table
       metDataCriteria: false,
@@ -24,12 +25,7 @@ window.onload=function() {
       },
 
       dataClick() {
-        this.tableCollapse = !this.tableCollapse
-        var resetTable = function() {
-          this.problemPoints = dataPointsData
-        }
-
-        setTimeout(resetTable.bind(this), 100)
+        this.problemPoints = dataPointsData
       }
     }
   })
