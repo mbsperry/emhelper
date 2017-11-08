@@ -3,23 +3,34 @@ window.onload=function() {
   var vm = new Vue({
     el: '#app',
     data: {
-      points: 0,                        // Tracks points for each category
+      riskPoints: false,
       fields: ['category', 'points'],   // Only show these fields
-      problemPoints: problemPointsData,
-      dataPoints: dataPointsData,
+      problemPointsCategories: problemPointsData,
+      dataPointsCategories: dataPointsData,
       codeCriteria: moderateComplexityCriteria, 
       metProbCriteria: false,           // Toggle the color on the indicator table
       metDataCriteria: false,
       metRiskCriteria: false,
       tableCollapse: true,
+      problemPoints: { 
+        points: 0, 
+        reqPoints: moderateComplexityCriteria.problemPoints, 
+        metCriteria: false 
+      },      // Tracks points for each category
+      dataPoints: {
+        points: 0, 
+        reqPoints: moderateComplexityCriteria.dataPoints, 
+        metCriteria: false 
+      } 
+
     },
     methods: {
-      addPoints(record, index) {
+      addPoints(record, catPoints) {
         record.instancePoints = record.instancePoints + record.points
           if (record.instancePoints <= record.allowedPoints) {
-            this.points = this.points + record.points
-              if (this.points >= this.codeCriteria.problemPoints) {
-                this.metProbCriteria = true
+             catPoints.points = catPoints.points + record.points
+              if (catPoints.points >= catPoints.reqPoints ) {
+                catPoints.metCriteria = true
               }
           }
       },
