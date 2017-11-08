@@ -3,41 +3,48 @@ window.onload=function() {
   var vm = new Vue({
     el: '#app',
     data: {
-      riskPoints: false,
+      problemPoints: '',
+      dataPoints: '',
+      riskPoints: '',
       fields: ['category', 'points'],   // Only show these fields
+      riskFields: ['category'],
       problemPointsCategories: problemPointsData,
       dataPointsCategories: dataPointsData,
+      riskPointsCategories: riskPointsData,
       codeCriteria: moderateComplexityCriteria, 
-      metProbCriteria: false,           // Toggle the color on the indicator table
-      metDataCriteria: false,
-      metRiskCriteria: false,
-      tableCollapse: true,
-      problemPoints: { 
+      tabIndex: 0
+    },
+    // Assign these variables after creation because need to be set after codeCriteria is set
+    created: function() {
+      this.problemPoints = { 
         points: 0, 
-        reqPoints: moderateComplexityCriteria.problemPoints, 
+        reqPoints: this.codeCriteria.problemPoints,
         metCriteria: false 
-      },      // Tracks points for each category
-      dataPoints: {
+      }
+      this.dataPoints = {
         points: 0, 
-        reqPoints: moderateComplexityCriteria.dataPoints, 
+        reqPoints: this.codeCriteria.dataPoints, 
         metCriteria: false 
-      } 
-
+      },
+      this.riskPoints = {
+        reqPoints: this.codeCriteria.risk,
+        metCriteria: false
+      }
     },
     methods: {
       addPoints(record, catPoints) {
-        record.instancePoints = record.instancePoints + record.points
-          if (record.instancePoints <= record.allowedPoints) {
-             catPoints.points = catPoints.points + record.points
-              if (catPoints.points >= catPoints.reqPoints ) {
-                catPoints.metCriteria = true
-              }
-          }
+        if (this.tabIndex == 2) {
+          this.riskPoints.metCriteria = true
+        } else {
+          record.instancePoints = record.instancePoints + record.points
+            if (record.instancePoints <= record.allowedPoints) {
+              catPoints.points = catPoints.points + record.points
+                if (catPoints.points >= catPoints.reqPoints ) {
+                  catPoints.metCriteria = true
+                }
+            }
+        }
       },
-
-      dataClick() {
-        this.problemPoints = dataPointsData
-      }
     }
   })
 }
@@ -119,6 +126,46 @@ var dataPointsData = [
   instancePoints: 0,
   allowedPoints: 2
 }]
+
+var riskPointsData = [
+{
+  category: "One or more chronic illness, with mild exacerbation, progression, or side effects of treatment",
+  points: 1
+},
+{
+  category: "Two or more stable chronic illnesses",
+  points: 1
+},
+{
+  category: "Undiagnosed new problem, with uncertain prognosis, e.g., lump in breast",
+  points: 1
+},
+{
+  category: 'Acute illness, with systemic symptoms',
+  points: 1
+},
+{
+  category: 'Acute complicated injury, e.g., head injury, with brief loss of consciousness',
+  points: 1
+},
+{
+  category: 'Physiologic tests under stress, e.g., cardiac stress test, fetal contraction stress test',
+  points: 1
+},
+{
+  category: 'Prescription drug management',
+  points: 1
+},
+{
+  category: 'IV fluids, with additives',
+  points: 1
+},
+{
+  category: 'Closed treatment of fracture or dislocation, without manipulation',
+  points: 1
+}]
+
+
 
 var moderateComplexityCriteria = {
   problemPoints: 3,

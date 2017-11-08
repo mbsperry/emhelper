@@ -34,7 +34,7 @@
             </b-col>
           </b-row>
           <b-row align-h="center" class="p-3">
-            <b-tabs style="width: 100%">
+            <b-tabs v-model="tabIndex" style="width: 100%">
               <b-tab title="Problems" active>
                 <template>
                   <b-table @row-clicked="addPoints($event, problemPoints)" striped hover :items="problemPointsCategories" :fields="fields"></b-table>
@@ -48,19 +48,22 @@
                 <b-row class="pr-3" align-h="end"><p>Total points {{ dataPoints.points }}</p></b-row>
               </b-tab>
               <b-tab title="Risk">
+                <template>
+                  <b-table @row-clicked="addPoints($event, riskPoints)" striped hover :items="riskPointsCategories" :fields="riskFields" id="probTable"></b-table>
+                </template>
               </b-tab>
             </b-tabs>
           </b-row>
           <div class="row justify-content-center">
-            <b-col cols="3" v-bind:class="{ 'table-success': problemPoints.metCriteria, 'table-danger': !problemPoints.metCriteria }" class="text-center" >
+            <b-col cols="3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemPoints.metCriteria, 'table-danger': !problemPoints.metCriteria }" class="text-center" >
               {{ problemPoints.reqPoints }} Problem Points
             </b-col>
-            <b-col cols="3" v-bind:class="{ 'table-success': dataPoints.metCriteria, 'table-danger': !dataPoints.metCriteria }" class="text-center" >
-              {{ dataPoints.reqPoints }} Data Points
-            </b-col>
-            <b-col cols="3" v-bind:class="{ 'table-success': riskPoints.metCriteria, 'table-danger': !riskPoints.metCriteria }" class="text-center" >
-              {{ riskPoints.reqPoints }} Risk
-            </b-col>
+              <b-col cols="3" @click="tabIndex = 1"  v-bind:class="{ 'table-success': dataPoints.metCriteria, 'table-danger': !dataPoints.metCriteria }" class="text-center" >
+                {{ dataPoints.reqPoints }} Data Points
+              </b-col>
+                <b-col cols="3" @click="tabIndex = 2" v-bind:class="{ 'table-success': riskPoints.metCriteria, 'table-danger': !riskPoints.metCriteria }" class="text-center" >
+                  {{ riskPoints.reqPoints }} Risk
+                </b-col>
           </div>
           <b-row align-h="center"><p><small class="text-muted">***Requires {{ codeCriteria.catRequired }} out 3***</small></p></b-row>
         </b-col>
