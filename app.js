@@ -45,6 +45,9 @@ window.onload=function() {
             }
         }
       },
+      isOddRow(num) {
+        return (num & 1) ? "list-gray" : false
+      }
     }
   })
 }

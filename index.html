@@ -35,18 +35,36 @@
           </b-row>
           <b-row align-h="center" class="p-3">
             <b-tabs v-model="tabIndex" style="width: 100%">
+
+              <!-- Problems Tab -->
               <b-tab title="Problems" active>
-                <template>
-                  <b-table @row-clicked="addPoints($event, problemPoints)" striped hover :items="problemPointsCategories" :fields="fields"></b-table>
-                </template>
-                <b-row class="pr-3" align-h="end"><p>Total points {{ problemPoints.points }}</p></b-row>
+                <div class="m-3" style="width: 100%">
+                  <div class="row pt-3 pb-3" style="width: 100%">
+                    <div class="col font-weight-bold">Category</div>
+                    <div class="col-2 font-weight-bold text-right">Points</div>
+                  </div>
+                  <template v-for="(cat, index) in problemPointsCategories">
+                    <div class="row pt-3 pb-3 main-list" :class="isOddRow(index)" @click="addPoints(cat, problemPoints)" style="width: 100%">
+                      <div class="col">{{ cat.category }}</div>
+                      <div class="col-2 text-right">{{ cat.points }}</div>
+                    </div>
+                  </template>
+                  <div class="row pt-3 pb-3 justify-content-end" style="width: 100%">
+                    <div class="col"><p class="font-weight-bold text-right">Total points:</p></div>
+                    <div class="col-3"><p class="font-weight-bold text-right">{{ problemPoints.points }}</p></div>
+                  </div>
+                </div>
               </b-tab>
+              
+              <!-- Data Tab -->
               <b-tab title="Data">
                 <template>
                   <b-table @row-clicked="addPoints($event, dataPoints)" striped hover :items="dataPointsCategories" :fields="fields"></b-table>
                 </template>
                 <b-row class="pr-3" align-h="end"><p>Total points {{ dataPoints.points }}</p></b-row>
               </b-tab>
+
+              <!-- Risk Tab -->
               <b-tab title="Risk">
                 <template>
                   <b-table @row-clicked="addPoints($event, riskPoints)" striped hover :items="riskPointsCategories" :fields="riskFields" id="probTable"></b-table>
@@ -54,6 +72,8 @@
               </b-tab>
             </b-tabs>
           </b-row>
+          
+          <!-- Indicator section -->
           <div class="row justify-content-center">
             <b-col cols="3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemPoints.metCriteria, 'table-danger': !problemPoints.metCriteria }" class="text-center" >
               {{ problemPoints.reqPoints }} Problem Points
