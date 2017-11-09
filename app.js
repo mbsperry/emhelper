@@ -45,8 +45,12 @@ window.onload=function() {
             }
         }
       },
-      isOddRow(num) {
-        return (num & 1) ? "list-gray" : false
+      setRowBackground(index, record) {
+        if (record.instancePoints > 0) {
+          return "list-yellow"
+        } else {
+          return (index & 1) ? "list-gray" : false
+        }
       }
     }
   })

@@ -23,6 +23,28 @@
 
   <body>
     <div class="container mw-100">
+<!-- Not currently working 
+      <!-- Define the main table component" -->
+<script type="text/x-template" id="main-table-template">
+  <div class="m-3" style="width: 100%">
+      <div class="row pt-3 pb-3" style="width: 100%">
+        <div class="col font-weight-bold">Category</div>
+      <div class="col-2 font-weight-bold text-right">Points</div>
+  </div>
+  <template v-for="(record, index) in vm.$root.problemPointsCategories">
+    <div class="row pt-3 pb-3 main-list" :class="setRowBackground(index, record)" @click="addPoints(record, problemPoints)" style="width: 100%">
+      <div class="col">{{ record.category }}</div>
+      <div class="col-2 text-right">{{ record.points }}</div>
+    </div>
+  </template>
+    <div class="row pt-3 pb-3 justify-content-end" style="width: 100%">
+      <div class="col"><p class="font-weight-bold text-right">Total points:</p></div>
+      <div class="col-3"><p class="font-weight-bold text-right">{{ problemPoints.points }}</p></div>
+    </div>
+  </div>
+</script>
+-->
+
       <div style="height: 75px;"></div>
       <div class="row justify-content-center">
         <b-col sm="6" class="rounded" id="app">
@@ -38,15 +60,16 @@
 
               <!-- Problems Tab -->
               <b-tab title="Problems" active>
+                <main-table></main-table>
                 <div class="m-3" style="width: 100%">
                   <div class="row pt-3 pb-3" style="width: 100%">
                     <div class="col font-weight-bold">Category</div>
                     <div class="col-2 font-weight-bold text-right">Points</div>
                   </div>
-                  <template v-for="(cat, index) in problemPointsCategories">
-                    <div class="row pt-3 pb-3 main-list" :class="isOddRow(index)" @click="addPoints(cat, problemPoints)" style="width: 100%">
-                      <div class="col">{{ cat.category }}</div>
-                      <div class="col-2 text-right">{{ cat.points }}</div>
+                  <template v-for="(record, index) in problemPointsCategories">
+                    <div class="row pt-3 pb-3 main-list" :class="setRowBackground(index, record)" @click="addPoints(record, problemPoints)" style="width: 100%">
+                      <div class="col">{{ record.category }}</div>
+                      <div class="col-2 text-right">{{ record.points }}</div>
                     </div>
                   </template>
                   <div class="row pt-3 pb-3 justify-content-end" style="width: 100%">
