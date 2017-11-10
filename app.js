@@ -1,9 +1,43 @@
 window.onload=function() {
 
+  Vue.component('main-table', {
+    template: '#main-table-template',
+    props: ['categoryData', 'categoryCriteria'],
+    data: function() {
+      return {
+        points: 0
+      }
+    },
+    methods: {
+      addPoints(selection) {
+        // Only require one selection to meet risk criteria
+        if (this.categoryCriteria.label == 'risk') {
+          this.$emit('metcriteria', this.categoryCriteria.label)
+        } else {
+          // For problems and data need to check to see how many we need
+          selection.instancePoints = selection.instancePoints + selection.points
+            if (selection.instancePoints <= selection.allowedPoints) {
+              this.points = this.points + selection.points
+                if (this.points >= this.categoryCriteria.reqPoints ) {
+                  this.$emit('metcriteria', this.categoryCriteria.label)
+                }
+            }
+        }
+      },
+      setRowBackground(index, selection) {
+        if (selection.instancePoints > 0) {
+          return "list-yellow"
+        } else {
+          return (index & 1) ? "list-gray" : false
+        }
+      }
+    }
+  })
+
   var vm = new Vue({
     el: '#app',
     data: {
-      problemPoints: '',
+      problemCriteria: '',
       dataPoints: '',
       riskPoints: '',
       fields: ['category', 'points'],   // Only show these fields
@@ -16,10 +50,10 @@ window.onload=function() {
     },
     // Assign these variables after creation because need to be set after codeCriteria is set
     created: function() {
-      this.problemPoints = { 
-        points: 0, 
+      this.problemCriteria = { 
+        label: 'problems',
         reqPoints: this.codeCriteria.problemPoints,
-        metCriteria: false 
+        metCriteria: false
       }
       this.dataPoints = {
         points: 0, 
@@ -32,6 +66,15 @@ window.onload=function() {
       }
     },
     methods: {
+      metCriteria(categoryLabel) {
+        if ( categoryLabel == 'problems' ) {
+          this.problemCriteria.metCriteria = true
+        } else if ( categoryLabel == 'data' ) {
+          this.dataPoints.metCriteria = true
+        } else if ( categoryLabel == 'risk' ) {
+          this.riskPoints.metCriteria = true
+        }
+      },
       addPoints(record, catPoints) {
         if (this.tabIndex == 2) {
           this.riskPoints.metCriteria = true

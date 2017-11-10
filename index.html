@@ -19,11 +19,6 @@
     <link rel="stylesheet"  type="text/css" href="style.css">
   </head>
 
-
-
-  <body>
-    <div class="container mw-100">
-<!-- Not currently working 
       <!-- Define the main table component" -->
 <script type="text/x-template" id="main-table-template">
   <div class="m-3" style="width: 100%">
@@ -31,19 +26,21 @@
         <div class="col font-weight-bold">Category</div>
       <div class="col-2 font-weight-bold text-right">Points</div>
   </div>
-  <template v-for="(record, index) in vm.$root.problemPointsCategories">
-    <div class="row pt-3 pb-3 main-list" :class="setRowBackground(index, record)" @click="addPoints(record, problemPoints)" style="width: 100%">
+  <template v-for="(record, index) in categoryData">
+    <div class="row pt-3 pb-3 main-list" :class="setRowBackground(index, record)" @click="addPoints(record)" style="width: 100%">
       <div class="col">{{ record.category }}</div>
       <div class="col-2 text-right">{{ record.points }}</div>
     </div>
   </template>
     <div class="row pt-3 pb-3 justify-content-end" style="width: 100%">
       <div class="col"><p class="font-weight-bold text-right">Total points:</p></div>
-      <div class="col-3"><p class="font-weight-bold text-right">{{ problemPoints.points }}</p></div>
+      <div class="col-3"><p class="font-weight-bold text-right">{{ points }}</p></div>
     </div>
   </div>
 </script>
--->
+
+  <body>
+    <div class="container mw-100">
 
       <div style="height: 75px;"></div>
       <div class="row justify-content-center">
@@ -60,7 +57,9 @@
 
               <!-- Problems Tab -->
               <b-tab title="Problems" active>
-                <main-table></main-table>
+                <main-table :category-data="problemPointsCategories" :category-criteria="problemCriteria" v-on:metcriteria="metCriteria"></main-table>
+
+                <!-- 
                 <div class="m-3" style="width: 100%">
                   <div class="row pt-3 pb-3" style="width: 100%">
                     <div class="col font-weight-bold">Category</div>
@@ -77,6 +76,7 @@
                     <div class="col-3"><p class="font-weight-bold text-right">{{ problemPoints.points }}</p></div>
                   </div>
                 </div>
+                -->
               </b-tab>
               
               <!-- Data Tab -->
@@ -98,8 +98,8 @@
           
           <!-- Indicator section -->
           <div class="row justify-content-center">
-            <b-col cols="3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemPoints.metCriteria, 'table-danger': !problemPoints.metCriteria }" class="text-center" >
-              {{ problemPoints.reqPoints }} Problem Points
+            <b-col cols="3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemCriteria.metCriteria, 'table-danger': !problemCriteria.metCriteria }" class="text-center" >
+              {{ problemCriteria.reqPoints }} Problem Points
             </b-col>
               <b-col cols="3" @click="tabIndex = 1"  v-bind:class="{ 'table-success': dataPoints.metCriteria, 'table-danger': !dataPoints.metCriteria }" class="text-center" >
                 {{ dataPoints.reqPoints }} Data Points
