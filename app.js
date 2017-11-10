@@ -12,6 +12,7 @@ window.onload=function() {
       addPoints(selection) {
         // Only require one selection to meet risk criteria
         if (this.categoryCriteria.label == 'risk') {
+          selection.instancePoints += 1
           this.$emit('metcriteria', this.categoryCriteria.label)
         } else {
           // For problems and data need to check to see how many we need
@@ -38,13 +39,11 @@ window.onload=function() {
     el: '#app',
     data: {
       problemCriteria: '',
-      dataPoints: '',
-      riskPoints: '',
-      fields: ['category', 'points'],   // Only show these fields
-      riskFields: ['category'],
+      dataCriteria: '',
+      riskCriteria: '',
       problemPointsCategories: problemPointsData,
       dataPointsCategories: dataPointsData,
-      riskPointsCategories: riskPointsData,
+      riskCategories: riskPointsData,
       codeCriteria: moderateComplexityCriteria, 
       tabIndex: 0
     },
@@ -55,12 +54,13 @@ window.onload=function() {
         reqPoints: this.codeCriteria.problemPoints,
         metCriteria: false
       }
-      this.dataPoints = {
-        points: 0, 
+      this.dataCriteria = {
+        label: 'data',
         reqPoints: this.codeCriteria.dataPoints, 
         metCriteria: false 
       },
-      this.riskPoints = {
+      this.riskCriteria = {
+        label: 'risk',
         reqPoints: this.codeCriteria.risk,
         metCriteria: false
       }
@@ -70,9 +70,9 @@ window.onload=function() {
         if ( categoryLabel == 'problems' ) {
           this.problemCriteria.metCriteria = true
         } else if ( categoryLabel == 'data' ) {
-          this.dataPoints.metCriteria = true
+          this.dataCriteria.metCriteria = true
         } else if ( categoryLabel == 'risk' ) {
-          this.riskPoints.metCriteria = true
+          this.riskCriteria.metCriteria = true
         }
       },
       addPoints(record, catPoints) {
@@ -180,11 +180,13 @@ var dataPointsData = [
 var riskPointsData = [
 {
   category: "One or more chronic illness, with mild exacerbation, progression, or side effects of treatment",
-  points: 1
+  points: 1,
+  instancePoints:0
 },
 {
   category: "Two or more stable chronic illnesses",
-  points: 1
+  points: 1,
+  instancePoints:0
 },
 {
   category: "Undiagnosed new problem, with uncertain prognosis, e.g., lump in breast",
@@ -192,27 +194,33 @@ var riskPointsData = [
 },
 {
   category: 'Acute illness, with systemic symptoms',
-  points: 1
+  points: 1,
+  instancePoints:0
 },
 {
   category: 'Acute complicated injury, e.g., head injury, with brief loss of consciousness',
-  points: 1
+  points: 1,
+  instancePoints:0
 },
 {
   category: 'Physiologic tests under stress, e.g., cardiac stress test, fetal contraction stress test',
-  points: 1
+  points: 1,
+  instancePoints:0
 },
 {
   category: 'Prescription drug management',
-  points: 1
+  points: 1,
+  instancePoints:0
 },
 {
   category: 'IV fluids, with additives',
-  points: 1
+  points: 1,
+  instancePoints:0
 },
 {
   category: 'Closed treatment of fracture or dislocation, without manipulation',
-  points: 1
+  points: 1,
+  instancePoints:0
 }]
 
 
