@@ -6,14 +6,6 @@ body {
   background-color: rgb(233,236,239);
 }
 
-div#totalCol {
-  background: whitesmoke;
-  font-weight: bold;
-}
-
-#app .table-hover tbody tr:hover {
-  background-color: rgb(0, 127, 247);
-}
 
 .main-list:hover {
   background: #007bff;
@@ -27,12 +19,8 @@ div#totalCol {
   background: #F8FA6A;
 }
 
-.list-white {
-  background: #ffffff;
+.tab-content {
+  width: 100%;
 }
 
-.table-fit {
-  white-space: nowrap;
-  width: 1%;
-}
 

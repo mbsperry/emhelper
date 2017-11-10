@@ -6,33 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="googlebot" content="noindex, nofollow">
 
+
+    <!-- Load Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- Load Vue -->
     <script type="text/javascript" src="vue.js"></script>
 
-    <script type="text/javascript" src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
-    <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="//unpkg.com/tether@latest/dist/css/tether.min.css">
-    <link rel="stylesheet" type="text/css" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css">
-    <script type="text/javascript" src="//unpkg.com/tether@latest/dist/js/tether.min.js"></script>
-    <script type="text/javascript" src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-
+    <!-- Load application js/css -->
     <script type="text/javascript" src="app.js"></script>
     <link rel="stylesheet"  type="text/css" href="style.css">
+
+    <title>EM Calculator</title>
   </head>
 
       <!-- Define the main table component" -->
 <script type="text/x-template" id="main-table-template">
-  <div class="m-3" style="width: 100%">
-      <div class="row pt-3 pb-3" style="width: 100%">
+      <div class="row ml-0 pb-3" style="width: 100%">
         <div class="col font-weight-bold">Category</div>
       <div class="col-2 font-weight-bold text-right">Points</div>
-  </div>
   <template v-for="(record, index) in categoryData">
-    <div class="row pt-3 pb-3 main-list" :class="setRowBackground(index, record)" @click="addPoints(record)" style="width: 100%">
+    <div class="row ml-0 pb-3 pt-3 main-list" :class="setRowBackground(index, record)" @click="addPoints(record)" style="width: 100%">
       <div class="col">{{ record.category }}</div>
       <div class="col-2 text-right">{{ record.points }}</div>
     </div>
   </template>
-    <div class="row pt-3 pb-3 justify-content-end" style="width: 100%">
+    <div class="row ml-0 justify-content-end" style="width: 100%">
       <div class="col"><p class="font-weight-bold text-right">Total points:</p></div>
       <div class="col-3"><p class="font-weight-bold text-right">{{ points }}</p></div>
     </div>
@@ -44,48 +46,54 @@
 
       <div style="height: 75px;"></div>
       <div class="row justify-content-center">
-        <b-col sm="6" class="rounded" id="app">
-          <b-row>
-            <b-col sm="auto" > <h1>E/M Helper</h1></b-col>
-            <b-col offset-sm="1">
-              <b-row> <p class="lead">Medical decision making complexity</p></b-row>
-              <b-row> <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p></b-row>
-            </b-col>
-          </b-row>
-          <b-row align-h="center" class="p-3">
-            <b-tabs v-model="tabIndex" style="width: 100%">
+        <div class="col-6 rounded" id="app">
+          <div class="row">
+            <div class="col"> <h1>E/M Helper</h1></div>
+            <div class="col">
+              <div class="row"> <p class="lead">Medical decision making complexity</p></div>
+              <div class="row"> <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p></div>
+            </div>
+          </div>
+            <nav class="nav nav-tabs justify-content-start" id="appTab" role="tablist">
+              <!-- Navigation tabs -->
+              <a class="nav-item nav-link active" id="nav-problems-tab" data-toggle="tab" href="#nav-problems">Problems</a>
+              <a class="nav-item nav-link" id="nav-data-tab" data-toggle="tab" href="#nav-data">Data</a>
+              <a class="nav-item nav-link" id="nav-risk-tab" data-toggle="tab" href="#nav-risk">Risk</a>
+            </nav>
+
+            <div class="tab-content p-3" id="nav-tabContent">
 
               <!-- Problems Tab -->
-              <b-tab title="Problems" active>
+              <div class="tab-pane fade show active" id="nav-problems" role="tabpanel" style="width: 100%"> 
                 <main-table :category-data="problemPointsCategories" :category-criteria="problemCriteria" v-on:metcriteria="metCriteria"></main-table>
-              </b-tab>
-              
+              </div>
+
               <!-- Data Tab -->
-              <b-tab title="Data">
+              <div class="tab-pane fade" id="nav-data" role="tabpanel"> 
                 <main-table :category-data="dataPointsCategories" :category-criteria="dataCriteria" v-on:metcriteria="metCriteria"></main-table>
-              </b-tab>
+              </div>
 
               <!-- Risk Tab -->
-              <b-tab title="Risk">
+              <div class="tab-pane fade" id="nav-risk" role="tabpanel"> 
                 <main-table :category-data="riskCategories" :category-criteria="riskCriteria" v-on:metcriteria="metCriteria"></main-table>
-              </b-tab>
-            </b-tabs>
-          </b-row>
+              </div>
+
+          </div>
           
           <!-- Indicator section -->
           <div class="row justify-content-center">
-            <b-col cols="3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemCriteria.metCriteria, 'table-danger': !problemCriteria.metCriteria }" class="text-center" >
+            <div class="cols-3 p-3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemCriteria.metCriteria, 'table-danger': !problemCriteria.metCriteria }" class="text-center" >
               {{ problemCriteria.reqPoints }} Problem Points
-            </b-col>
-              <b-col cols="3" @click="tabIndex = 1"  v-bind:class="{ 'table-success': dataCriteria.metCriteria, 'table-danger': !dataCriteria.metCriteria }" class="text-center" >
+            </div>
+              <div class="cols-3 p-3" @click="tabIndex = 1"  v-bind:class="{ 'table-success': dataCriteria.metCriteria, 'table-danger': !dataCriteria.metCriteria }" class="text-center" >
                 {{ dataCriteria.reqPoints }} Data Points
-              </b-col>
-                <b-col cols="3" @click="tabIndex = 2" v-bind:class="{ 'table-success': riskCriteria.metCriteria, 'table-danger': !riskCriteria.metCriteria }" class="text-center" >
+              </div>
+                <div class="cols-3 p-3" @click="tabIndex = 2" v-bind:class="{ 'table-success': riskCriteria.metCriteria, 'table-danger': !riskCriteria.metCriteria }" class="text-center" >
                   {{ riskCriteria.reqPoints }} Risk
-                </b-col>
+                </div>
           </div>
-          <b-row align-h="center"><p><small class="text-muted">***Requires {{ codeCriteria.catRequired }} out 3***</small></p></b-row>
-        </b-col>
+          <div class="row justify-content-center"><p><small class="text-muted">***Requires {{ codeCriteria.catRequired }} out 3***</small></p></div>
+        </div>
       </div>
     </div>
   </body>
