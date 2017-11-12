@@ -43,9 +43,19 @@ window.onload=function() {
       riskCriteria: '',
       problemPointsCategories: problemPointsData,
       dataPointsCategories: dataPointsData,
-      riskCategories: riskPointsData,
+      riskCategories: riskPointsDataModerate,
       codeCriteria: moderateComplexityCriteria, 
-      tabIndex: 0
+      tabIndex: 0,
+      complexity: 'moderate'
+    },
+    computed: {
+      buttonsOrientation: function() {
+        if (window.matchMedia( "(min-width: 510px)" ).matches ) {
+          return "btn-group"
+        } else {
+          return "btn-group-vertical"
+        }
+      },
     },
     // Assign these variables after creation because need to be set after codeCriteria is set
     created: function() {
@@ -75,24 +85,21 @@ window.onload=function() {
           this.riskCriteria.metCriteria = true
         }
       },
-      addPoints(record, catPoints) {
-        if (this.tabIndex == 2) {
-          this.riskPoints.metCriteria = true
-        } else {
-          record.instancePoints = record.instancePoints + record.points
-            if (record.instancePoints <= record.allowedPoints) {
-              catPoints.points = catPoints.points + record.points
-                if (catPoints.points >= catPoints.reqPoints ) {
-                  catPoints.metCriteria = true
-                }
-            }
+      changeComplexity(complexity) {
+          this.complexity = complexity
+        if (complexity == 'moderate') {
+          console.log('moderate')
+          this.riskCategories = riskPointsDataModerate
+          this.codeCriteria = moderateComplexityCriteria
+        } else if (complexity == 'high') {
+          console.log('high')
+          this.riskCategories = riskPointsDataHigh
+          this.codeCriteria = highComplexityCriteria
         }
       },
-      setRowBackground(index, record) {
-        if (record.instancePoints > 0) {
-          return "list-yellow"
-        } else {
-          return (index & 1) ? "list-gray" : false
+      getBtnState(btn) {
+        if (this.complexity == btn) {
+          return 'active'
         }
       }
     }
@@ -177,7 +184,7 @@ var dataPointsData = [
   allowedPoints: 2
 }]
 
-var riskPointsData = [
+var riskPointsDataModerate = [
 {
   category: "One or more chronic illness, with mild exacerbation, progression, or side effects of treatment",
   points: 1,
@@ -223,7 +230,37 @@ var riskPointsData = [
   instancePoints:0
 }]
 
-
+var riskPointsDataHigh = [
+{
+  category: 'One or more chronic illness, with severe exacerbation or progression',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'Acute or chronic illness or injury, which poses a threat to life or bodily function, e.g., multiple trauma, acute MI, pulmonary embolism, severe respiratory distress, progressive severe rheumatoid arthritis, psychiatric illness, with potential threat to self or others, peritonitis, ARF',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'An abrupt change in neurological status, e.g., seizure, TIA, weakness, sensory loss',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'Parenteral controlled substances',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'Drug therapy requiring intensive monitoring for toxicity',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'Decision not to resuscitate, or to de-escalate care because of poor prognosis',
+  points: 1,
+  instancePoints: 0
+}]
 
 var moderateComplexityCriteria = {
   problemPoints: 3,
@@ -231,3 +268,11 @@ var moderateComplexityCriteria = {
   risk: "Moderate",
   catRequired: 2
 }
+
+var highComplexityCriteria = {
+  problemPoints: 4,
+  dataPoints: 4,
+  risk: "High",
+  catRequired: 2
+}
+
