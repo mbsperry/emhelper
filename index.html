@@ -90,12 +90,12 @@
           <!-- Indicator section -->
           <div class="row justify-content-center">
             <div class="cols-3 p-3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemCriteria.metCriteria, 'table-danger': !problemCriteria.metCriteria }" class="text-center" >
-              {{ problemCriteria.reqPoints }} Problem Points
+              {{ codeCriteria.problemPoints }} Problem Points
             </div>
               <div class="cols-3 p-3" @click="tabIndex = 1"  v-bind:class="{ 'table-success': dataCriteria.metCriteria, 'table-danger': !dataCriteria.metCriteria }" class="text-center" >
-                {{ dataCriteria.reqPoints }} Data Points
+                {{ codeCriteria.dataPoints }} Data Points
               </div>
-                <div class="cols-3 p-3" @click="tabIndex = 2" v-bind:class="{ 'table-success': riskCriteria.metCriteria, 'table-danger': !riskCriteria.metCriteria }" class="text-center" >
+                <div class="cols-3 p-3" :class="{ 'table-success': riskCriteria.metCriteria, 'table-danger': !riskCriteria.metCriteria }" class="text-center" >
                   {{ riskCriteria.reqPoints }} Risk
                 </div>
           </div>
