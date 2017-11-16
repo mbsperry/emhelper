@@ -101,6 +101,7 @@ window.onload=function() {
         this.complexity = complexity
         if (complexity == 'low') {
           this.risk = 1
+          this.riskCategories = riskPointsDataLow
         } else if (complexity == 'moderate') {
           this.risk = 2
           console.log('moderate')
@@ -277,6 +278,33 @@ var riskPointsDataHigh = [
   category: 'Decision not to resuscitate, or to de-escalate care because of poor prognosis',
   points: 1,
   instancePoints: 0
+}]
+
+var riskPointsDataLow = [
+{
+  category: 'Two or more self-limited or minor problems',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'One stable chronic illness, e.g., well controlled HTN, DM2, cataract',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'Superficial needle biopsy',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'Over the counter drugs',
+  points: 1,
+  instancePoints: 0
+},
+{
+  category: 'IV fluids, without additives',
+  points: 1,
+  instancePointS: 0
 }]
 
 var moderateComplexityCriteria = {
