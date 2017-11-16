@@ -9,19 +9,18 @@ window.onload=function() {
       }
     },
     methods: {
-      addPoints(selection) {
+      onClick(selection) {
         // Only require one selection to meet risk criteria
         if (this.categoryCriteria.label == 'risk') {
           selection.instancePoints += 1
-          this.$emit('metcriteria', this.categoryCriteria.label)
+          this.points += 1
+          this.$emit('update-points', this.categoryCriteria.label, this.points)
         } else {
           // For problems and data need to check to see how many we need
           selection.instancePoints = selection.instancePoints + selection.points
             if (selection.instancePoints <= selection.allowedPoints) {
               this.points = this.points + selection.points
-                if (this.points >= this.categoryCriteria.reqPoints ) {
-                  this.$emit('metcriteria', this.categoryCriteria.label)
-                }
+              this.$emit('update-points', this.categoryCriteria.label, this.points)
             }
         }
       },
@@ -38,6 +37,9 @@ window.onload=function() {
   var vm = new Vue({
     el: '#app',
     data: {
+      problemPoints: 0,
+      dataPoints: 0,
+      risk: '',
       problemCriteria: '',
       dataCriteria: '',
       riskCriteria: { label: 'risk', reqPoints: 'Moderate', metCriteria: false },
@@ -79,12 +81,19 @@ window.onload=function() {
       }
     },
     methods: {
-      metCriteria(categoryLabel) {
+      updatePoints(categoryLabel, points) {
         if ( categoryLabel == 'problems' ) {
-          this.problemCriteria.metCriteria = true
+          this.problemPoints += points
+          if (this.problemPoints >= this.problemCriteria.reqPoints) {
+            this.problemCriteria.metCriteria = true
+          }
         } else if ( categoryLabel == 'data' ) {
-          this.dataCriteria.metCriteria = true
+          this.dataPoints += points
+          if (this.dataPoints >= this.dataCriteria.reqPoints) {
+            this.dataCriteria.metCriteria = true
+          }
         } else if ( categoryLabel == 'risk' ) {
+          this.risk = this.codeCriteria.risk
           this.riskCriteria.metCriteria = true
         }
       },

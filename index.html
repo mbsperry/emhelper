@@ -29,7 +29,7 @@
         <div class="col font-weight-bold">Category</div>
       <div class="col-2 font-weight-bold text-right">Points</div>
   <template v-for="(record, index) in categoryData">
-    <div class="row ml-0 pb-3 pt-3 main-list" :class="setRowBackground(index, record)" @click="addPoints(record)" style="width: 100%">
+    <div class="row ml-0 pb-3 pt-3 main-list" :class="setRowBackground(index, record)" @click="onClick(record)" style="width: 100%">
       <div class="col">{{ record.category }}</div>
       <div class="col-2 text-right">{{ record.points }}</div>
     </div>
@@ -72,17 +72,17 @@
 
               <!-- Problems Tab -->
               <div class="tab-pane fade show active" id="nav-problems" role="tabpanel" style="width: 100%"> 
-                <main-table :category-data="problemPointsCategories" :category-criteria="problemCriteria" v-on:metcriteria="metCriteria"></main-table>
+                <main-table :category-data="problemPointsCategories" :category-criteria="problemCriteria" v-on:update-points="updatePoints"></main-table>
               </div>
 
               <!-- Data Tab -->
               <div class="tab-pane fade" id="nav-data" role="tabpanel"> 
-                <main-table :category-data="dataPointsCategories" :category-criteria="dataCriteria" v-on:metcriteria="metCriteria"></main-table>
+                <main-table :category-data="dataPointsCategories" :category-criteria="dataCriteria" v-on:update-points="updatePoints"></main-table>
               </div>
 
               <!-- Risk Tab -->
               <div class="tab-pane fade" id="nav-risk" role="tabpanel"> 
-                <main-table :category-data="riskCategories" :category-criteria="riskCriteria" v-on:metcriteria="metCriteria"></main-table>
+                <main-table :category-data="riskCategories" :category-criteria="riskCriteria" v-on:update-points="updatePoints"></main-table>
               </div>
 
           </div>
