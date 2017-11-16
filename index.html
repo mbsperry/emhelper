@@ -54,12 +54,6 @@
               <div class="row"> <p><a href='https://emuniversity.com/ModerateComplexityMedicalDecision-Making.html'>For more information visit E/M University</a></p></div>
             </div>
           </div>
-          <div class="row p-3 mb-3 justify-content-center">
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-info" :class="getBtnState('moderate')" @click="changeComplexity('moderate')">Moderate Complexity</button>
-              <button type="button" class="btn btn-info" :class="getBtnState('high')" @click="changeComplexity('high')">High Complexity</button>
-            </div>
-          </div>
               
             <nav class="nav nav-tabs justify-content-start" id="appTab" role="tablist">
               <!-- Navigation tabs -->
@@ -82,6 +76,16 @@
 
               <!-- Risk Tab -->
               <div class="tab-pane fade" id="nav-risk" role="tabpanel"> 
+                <!-- Select risk button group -->
+                <div class="row p-3 mb-3 justify-content-center">
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-info" :class="getBtnState('low')" @click="changeRisk('low')">Low Risk</button>
+                    <button type="button" class="btn btn-info" :class="getBtnState('moderate')" @click="changeRisk('moderate')">Moderate Risk</button>
+                    <button type="button" class="btn btn-info" :class="getBtnState('high')" @click="changeRisk('high')">High Risk</button>
+                  </div>
+                </div>
+
+                <!-- Main risk table -->
                 <main-table :category-data="riskCategories" :category-criteria="riskCriteria" v-on:update-points="updatePoints"></main-table>
               </div>
 

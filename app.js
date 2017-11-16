@@ -97,13 +97,17 @@ window.onload=function() {
           this.riskCriteria.metCriteria = true
         }
       },
-      changeComplexity(complexity) {
-          this.complexity = complexity
-        if (complexity == 'moderate') {
+      changeRisk(complexity) {
+        this.complexity = complexity
+        if (complexity == 'low') {
+          this.risk = 1
+        } else if (complexity == 'moderate') {
+          this.risk = 2
           console.log('moderate')
           this.riskCategories = riskPointsDataModerate
           this.codeCriteria = moderateComplexityCriteria
         } else if (complexity == 'high') {
+          this.risk = 3
           console.log('high')
           this.riskCategories = riskPointsDataHigh
           this.codeCriteria = highComplexityCriteria
