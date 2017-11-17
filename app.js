@@ -43,7 +43,8 @@ window.onload=function() {
       problemPointsCategories: problemPointsData,
       dataPointsCategories: dataPointsData,
       riskCategories: riskPointsDataModerate,
-      riskLevel: 'moderate'
+      riskLevel: 'moderate',
+      overallComplexity: ''
     },
     computed: {
       buttonsOrientation: function() {
@@ -76,6 +77,40 @@ window.onload=function() {
           } else if (this.riskLevel == 'high' && tempPoints > 0 && this.risk <= 3) {
             this.risk = 3
           }
+        }
+        this.computeComplexity()
+      },
+
+      computeComplexity() {
+
+        // Do we meet high complexity criteria?
+        if (this.meetsCriteria(4, 4, 3)) {
+          this.overallComplexity = 'high'
+        } else if (this.meetsCriteria(3, 3, 2)) {
+          this.overallComplexity = 'moderate'
+        } else if (this.meetsCriteria(2, 2, 1)) {
+          this.overallComplexity = 'low'
+        }
+      },
+
+      meetsCriteria(reqProbPoints, reqDataPoints, reqRisk) {
+        var catMet = 0
+        if (this.problemPoints >= reqProbPoints) {
+          catMet += 1
+        }
+        if (this.dataPoints >= reqDataPoints) {
+          catMet += 1
+        }
+        if (this.risk >= reqRisk) {
+          catMet += 1
+        }
+
+        console.log(catMet)
+
+        if (catMet >= 2) {
+          return true
+        } else {
+          return false
         }
       },
 

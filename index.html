@@ -128,12 +128,12 @@
                   <th scope="row" class="table-secondary">High Complexity</th>
                   <td :class="problemPoints == 4 ? 'table-success' : 'table-danger'">4</td>
                   <td :class="dataPoints == 4 ? 'table-success' : 'table-danger'">4</td>
-                  <td :class="risk == 4 ? 'table-success' : 'table-danger'">High Risk</td>
+                  <td :class="risk == 3 ? 'table-success' : 'table-danger'">High Risk</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="row justify-content-center"><p><small class="text-muted">***Requires 2 out 3***</small></p></div>
+          <div class="row justify-content-center"><p><small class="text-muted">***Overall Complexity: {{overallComplexity}}***</small></p></div>
         </div>
       </div>
     </div>
