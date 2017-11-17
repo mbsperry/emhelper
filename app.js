@@ -2,7 +2,7 @@ window.onload=function() {
 
   Vue.component('main-table', {
     template: '#main-table-template',
-    props: ['categoryData', 'categoryCriteria'],
+    props: ['categoryData', 'label'],
     data: function() {
       return {
         points: 0
@@ -11,16 +11,16 @@ window.onload=function() {
     methods: {
       onClick(selection) {
         // Only require one selection to meet risk criteria
-        if (this.categoryCriteria.label == 'risk') {
+        if (selection.allowedPoints == null) {
           selection.instancePoints += 1
           this.points += 1
-          this.$emit('update-points', this.categoryCriteria.label, this.points)
+          this.$emit('update-points', this.categoryData, this.label)
         } else {
           // For problems and data need to check to see how many we need
-          selection.instancePoints = selection.instancePoints + selection.points
-            if (selection.instancePoints <= selection.allowedPoints) {
+            if (selection.instancePoints < selection.allowedPoints) {
+              selection.instancePoints += selection.points
               this.points = this.points + selection.points
-              this.$emit('update-points', this.categoryCriteria.label, this.points)
+              this.$emit('update-points', this.categoryData, this.label)
             }
         }
       },
@@ -48,7 +48,7 @@ window.onload=function() {
       riskCategories: riskPointsDataModerate,
       codeCriteria: moderateComplexityCriteria, 
       tabIndex: 0,
-      complexity: 'moderate'
+      riskLevel: 'moderate'
     },
     computed: {
       buttonsOrientation: function() {
@@ -81,7 +81,30 @@ window.onload=function() {
       }
     },
     methods: {
-      updatePoints(categoryLabel, points) {
+      updatePoints(categoryData, label) {
+        var tempPoints = 0 
+        /* Loop through add up points */
+        for (var i = 0; i < categoryData.length; i++) {
+          tempPoints += categoryData[i].instancePoints
+        }
+        if (label == 'problems' ) {
+          this.problemPoints = tempPoints
+        } else if (label == 'data' ) {
+          this.dataPoints = tempPoints
+        } else if (label == 'risk' ) {
+          console.log(this.riskLevel)
+          /* Only update risk level if it would bump up to next level
+           * never downgrade risk level
+           */ 
+          if (this.riskLevel == 'low' && tempPoints > 0 && this.risk <= 1) {
+            this.risk = 1
+          } else if (this.riskLevel == 'moderate' && tempPoints > 0 && this.risk <= 2) {
+            this.risk = 2
+          } else if (this.riskLevel == 'high' && tempPoints > 0 && this.risk <= 3) {
+            this.risk = 3
+          }
+        }
+        /*
         if ( categoryLabel == 'problems' ) {
           this.problemPoints += points
           if (this.problemPoints >= this.problemCriteria.reqPoints) {
@@ -96,19 +119,18 @@ window.onload=function() {
           this.risk = this.codeCriteria.risk
           this.riskCriteria.metCriteria = true
         }
+        */
+        console.log(tempPoints)
       },
-      changeRisk(complexity) {
-        this.complexity = complexity
-        if (complexity == 'low') {
-          this.risk = 1
+      changeRisk(riskLevel) {
+        this.riskLevel = riskLevel
+        if (riskLevel == 'low') {
           this.riskCategories = riskPointsDataLow
-        } else if (complexity == 'moderate') {
-          this.risk = 2
+        } else if (riskLevel == 'moderate') {
           console.log('moderate')
           this.riskCategories = riskPointsDataModerate
           this.codeCriteria = moderateComplexityCriteria
-        } else if (complexity == 'high') {
-          this.risk = 3
+        } else if (riskLevel == 'high') {
           console.log('high')
           this.riskCategories = riskPointsDataHigh
           this.codeCriteria = highComplexityCriteria
@@ -116,7 +138,7 @@ window.onload=function() {
       },
       // Switch active state complexity buttons to mimick radio style buttons. Only one active at a time
       getBtnState(btn) {
-        if (this.complexity == btn) {
+        if (this.riskLevel == btn) {
           return 'active'
         }
       }
@@ -215,7 +237,8 @@ var riskPointsDataModerate = [
 },
 {
   category: "Undiagnosed new problem, with uncertain prognosis, e.g., lump in breast",
-  points: 1
+  points: 1,
+  instancePoints: 0
 },
 {
   category: 'Acute illness, with systemic symptoms',
@@ -304,7 +327,7 @@ var riskPointsDataLow = [
 {
   category: 'IV fluids, without additives',
   points: 1,
-  instancePointS: 0
+  instancePoints: 0
 }]
 
 var moderateComplexityCriteria = {
