@@ -40,13 +40,9 @@ window.onload=function() {
       problemPoints: 0,
       dataPoints: 0,
       risk: '',
-      problemCriteria: '',
-      dataCriteria: '',
-      riskCriteria: { label: 'risk', reqPoints: 'Moderate', metCriteria: false },
       problemPointsCategories: problemPointsData,
       dataPointsCategories: dataPointsData,
       riskCategories: riskPointsDataModerate,
-      tabIndex: 0,
       riskLevel: 'moderate'
     },
     computed: {
@@ -70,7 +66,6 @@ window.onload=function() {
         } else if (label == 'data' ) {
           this.dataPoints = tempPoints
         } else if (label == 'risk' ) {
-          console.log(this.riskLevel)
           /* Only update risk level if it would bump up to next level
            * never downgrade risk level
            */ 
@@ -82,24 +77,8 @@ window.onload=function() {
             this.risk = 3
           }
         }
-        /*
-        if ( categoryLabel == 'problems' ) {
-          this.problemPoints += points
-          if (this.problemPoints >= this.problemCriteria.reqPoints) {
-            this.problemCriteria.metCriteria = true
-          }
-        } else if ( categoryLabel == 'data' ) {
-          this.dataPoints += points
-          if (this.dataPoints >= this.dataCriteria.reqPoints) {
-            this.dataCriteria.metCriteria = true
-          }
-        } else if ( categoryLabel == 'risk' ) {
-          this.risk = this.codeCriteria.risk
-          this.riskCriteria.metCriteria = true
-        }
-        */
-        console.log(tempPoints)
       },
+
       changeRisk(riskLevel) {
         this.riskLevel = riskLevel
         if (riskLevel == 'low') {
@@ -112,8 +91,11 @@ window.onload=function() {
           this.riskCategories = riskPointsDataHigh
         }
       },
-      // Switch active state complexity buttons to mimick radio style buttons. Only one active at a time
+
       getBtnState(btn) {
+      /* Switch active state complexity buttons to mimick radio style 
+       * buttons. Only one active at a time
+       */
         if (this.riskLevel == btn) {
           return 'active'
         }

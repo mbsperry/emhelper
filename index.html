@@ -35,8 +35,10 @@
     </div>
   </template>
     <div class="row ml-0 justify-content-end" style="width: 100%">
+      <!-- 
       <div class="col"><p class="font-weight-bold text-right">Total points:</p></div>
       <div class="col-3"><p class="font-weight-bold text-right">{{ points }}</p></div>
+      -->
     </div>
   </div>
 </script>
@@ -90,18 +92,46 @@
               </div>
 
           </div>
+          <hr>
           
           <!-- Indicator section -->
-          <div class="row justify-content-center">
-            <div class="cols-3 p-3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemCriteria.metCriteria, 'table-danger': !problemCriteria.metCriteria }" class="text-center" >
-              {{ problemPoints }} Problem Points
-            </div>
-              <div class="cols-3 p-3" @click="tabIndex = 1"  v-bind:class="{ 'table-success': dataCriteria.metCriteria, 'table-danger': !dataCriteria.metCriteria }" class="text-center" >
-                {{ dataPoints }} Data Points
-              </div>
-                <div class="cols-3 p-3" :class="{ 'table-success': riskCriteria.metCriteria, 'table-danger': !riskCriteria.metCriteria }" class="text-center" >
-                  {{ risk }} Risk
-                </div>
+          <div class="row justify-content-center p-5">
+            <table class="table table-small borderless p-3">
+              <thead>
+                <tr class="table-secondary">
+                  <th scope="col">Overall MDM</th>
+                  <th scope="col">Problem Points</th>
+                  <th scope="col">Data Points</th>
+                  <th scope="col">Risk Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-secondary text-center">---</td>
+                  <td :class="problemPoints == 1 ? 'table-success' : 'table-danger'">1</td>
+                  <td :class="dataPoints == 1 ? 'table-success' : 'table-danger'">1</td>
+                  <td class="table-danger">N/A</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="table-secondary">Low Complexity</th>
+                  <td :class="problemPoints == 2 ? 'table-success' : 'table-danger'">2</td>
+                  <td :class="dataPoints == 2 ? 'table-success' : 'table-danger'">2</td>
+                  <td :class="risk == 1 ? 'table-success' : 'table-danger'">Low Risk</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="table-secondary">Moderate Complexity</th>
+                  <td :class="problemPoints == 3 ? 'table-success' : 'table-danger'">3</td>
+                  <td :class="dataPoints == 3 ? 'table-success' : 'table-danger'">3</td>
+                  <td :class="risk == 2 ? 'table-success' : 'table-danger'">Moderate Risk</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="table-secondary">High Complexity</th>
+                  <td :class="problemPoints == 4 ? 'table-success' : 'table-danger'">4</td>
+                  <td :class="dataPoints == 4 ? 'table-success' : 'table-danger'">4</td>
+                  <td :class="risk == 4 ? 'table-success' : 'table-danger'">High Risk</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div class="row justify-content-center"><p><small class="text-muted">***Requires 2 out 3***</small></p></div>
         </div>

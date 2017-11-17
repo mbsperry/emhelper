@@ -23,4 +23,8 @@ body {
   width: 100%;
 }
 
+.borderless td, .borderless th {
+  border: none;
+}
+
 
