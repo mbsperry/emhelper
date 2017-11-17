@@ -46,7 +46,6 @@ window.onload=function() {
       problemPointsCategories: problemPointsData,
       dataPointsCategories: dataPointsData,
       riskCategories: riskPointsDataModerate,
-      codeCriteria: moderateComplexityCriteria, 
       tabIndex: 0,
       riskLevel: 'moderate'
     },
@@ -57,27 +56,6 @@ window.onload=function() {
         } else {
           return "btn-group-vertical"
         }
-      }
-    },
-    // Assign these variables after creation because need to be set after codeCriteria is set
-    created: function() {
-      this.problemCriteria = { 
-        label: 'problems',
-        reqPoints: this.codeCriteria.problemPoints,
-        metCriteria: false
-      }
-      this.dataCriteria = {
-        label: 'data',
-        reqPoints: this.codeCriteria.dataPoints, 
-        metCriteria: false 
-      }
-    },
-    // uptdate category criteria everytime codeCriteria changes, computed function was having difficulty with reactivity.
-    watch: {
-      codeCriteria: function(newCriteria) {
-        this.problemCriteria.reqPoints = newCriteria.problemPoints
-        this.dataCriteria.reqPoints = newCriteria.dataPoints
-        this.riskCriteria.reqPoints = newCriteria.risk
       }
     },
     methods: {
@@ -129,11 +107,9 @@ window.onload=function() {
         } else if (riskLevel == 'moderate') {
           console.log('moderate')
           this.riskCategories = riskPointsDataModerate
-          this.codeCriteria = moderateComplexityCriteria
         } else if (riskLevel == 'high') {
           console.log('high')
           this.riskCategories = riskPointsDataHigh
-          this.codeCriteria = highComplexityCriteria
         }
       },
       // Switch active state complexity buttons to mimick radio style buttons. Only one active at a time

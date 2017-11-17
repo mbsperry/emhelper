@@ -94,16 +94,16 @@
           <!-- Indicator section -->
           <div class="row justify-content-center">
             <div class="cols-3 p-3" @click="tabIndex = 0" v-bind:class="{ 'table-success': problemCriteria.metCriteria, 'table-danger': !problemCriteria.metCriteria }" class="text-center" >
-              {{ codeCriteria.problemPoints }} Problem Points
+              {{ problemPoints }} Problem Points
             </div>
               <div class="cols-3 p-3" @click="tabIndex = 1"  v-bind:class="{ 'table-success': dataCriteria.metCriteria, 'table-danger': !dataCriteria.metCriteria }" class="text-center" >
-                {{ codeCriteria.dataPoints }} Data Points
+                {{ dataPoints }} Data Points
               </div>
                 <div class="cols-3 p-3" :class="{ 'table-success': riskCriteria.metCriteria, 'table-danger': !riskCriteria.metCriteria }" class="text-center" >
-                  {{ riskCriteria.reqPoints }} Risk
+                  {{ risk }} Risk
                 </div>
           </div>
-          <div class="row justify-content-center"><p><small class="text-muted">***Requires {{ codeCriteria.catRequired }} out 3***</small></p></div>
+          <div class="row justify-content-center"><p><small class="text-muted">***Requires 2 out 3***</small></p></div>
         </div>
       </div>
     </div>
