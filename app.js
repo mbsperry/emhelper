@@ -110,7 +110,6 @@ window.onload=function() {
       },
 
       updateAll() {
-        console.log("updateAll")
         this.problemPoints = 0
         this.dataPoints = 0
         this.risk = 0
