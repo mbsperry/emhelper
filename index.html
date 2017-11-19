@@ -95,8 +95,8 @@
           <hr>
           
           <!-- Indicator section -->
-          <div class="row justify-content-center p-5">
-            <table class="table table-small borderless p-3">
+          <div class="row justify-content-center p-3">
+            <table class="table table-small borderless w-75">
               <thead>
                 <tr class="table-secondary">
                   <th scope="col">Overall MDM</th>
@@ -107,25 +107,25 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="table-secondary text-center">---</td>
+                  <td class="text-center table-secondary heading-cell" >---</td>
                   <td :class="problemPoints == 1 ? 'table-success' : 'table-danger'">1</td>
                   <td :class="dataPoints == 1 ? 'table-success' : 'table-danger'">1</td>
                   <td class="table-danger">N/A</td>
                 </tr>
                 <tr>
-                  <th scope="row" class="table-secondary">Low Complexity</th>
+                  <th scope="row" class="heading-cell" :class="overallComplexity == 'low' ? 'table-success' : 'table-secondary'">Low Complexity</th>
                   <td :class="problemPoints == 2 ? 'table-success' : 'table-danger'">2</td>
                   <td :class="dataPoints == 2 ? 'table-success' : 'table-danger'">2</td>
                   <td :class="risk == 1 ? 'table-success' : 'table-danger'">Low Risk</td>
                 </tr>
                 <tr>
-                  <th scope="row" class="table-secondary">Moderate Complexity</th>
+                  <th scope="row" class="heading-cell" :class="overallComplexity == 'moderate' ? 'table-success' : 'table-secondary'">Moderate Complexity</th>
                   <td :class="problemPoints == 3 ? 'table-success' : 'table-danger'">3</td>
                   <td :class="dataPoints == 3 ? 'table-success' : 'table-danger'">3</td>
                   <td :class="risk == 2 ? 'table-success' : 'table-danger'">Moderate Risk</td>
                 </tr>
                 <tr>
-                  <th scope="row" class="table-secondary">High Complexity</th>
+                  <th scope="row" class="heading-cell" :class="overallComplexity == 'high' ? 'table-success' : 'table-secondary'">High Complexity</th>
                   <td :class="problemPoints >= 4 ? 'table-success' : 'table-danger'">4</td>
                   <td :class="dataPoints >= 4 ? 'table-success' : 'table-danger'">4</td>
                   <td :class="risk == 3 ? 'table-success' : 'table-danger'">High Risk</td>
