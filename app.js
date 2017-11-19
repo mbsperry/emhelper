@@ -30,6 +30,17 @@ window.onload=function() {
         } else {
           return (index & 1) ? "list-gray" : false
         }
+      },
+
+      resetCategory() {
+        for (i = 0; i < this.categoryData.length; i++) {
+          this.categoryData[i].instancePoints = 0
+          this.points = 0
+          this.$emit('update-points', this.categoryData, this.label)
+        }
+      },
+
+      resetAll() {
       }
     }
   })
@@ -105,7 +116,6 @@ window.onload=function() {
           catMet += 1
         }
 
-        console.log(catMet)
 
         if (catMet >= 2) {
           return true
@@ -119,10 +129,8 @@ window.onload=function() {
         if (riskLevel == 'low') {
           this.riskCategories = riskPointsDataLow
         } else if (riskLevel == 'moderate') {
-          console.log('moderate')
           this.riskCategories = riskPointsDataModerate
         } else if (riskLevel == 'high') {
-          console.log('high')
           this.riskCategories = riskPointsDataHigh
         }
       },
