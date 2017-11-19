@@ -66,12 +66,12 @@
 
               <!-- Problems Tab -->
               <div class="tab-pane fade show active" id="nav-problems" role="tabpanel" style="width: 100%"> 
-                <main-table :category-data="problemPointsCategories" label="problems" v-on:update-points="updatePoints"></main-table>
+                <main-table :category-data="problemPointsCategories" label="problems" v-on:update-points="updatePoints" v-on:update-all="updateAll"></main-table>
               </div>
 
               <!-- Data Tab -->
               <div class="tab-pane fade" id="nav-data" role="tabpanel"> 
-                <main-table :category-data="dataPointsCategories" label="data" v-on:update-points="updatePoints"></main-table>
+                <main-table :category-data="dataPointsCategories" label="data" v-on:update-points="updatePoints" v-on:update-all="updateAll"></main-table>
               </div>
 
               <!-- Risk Tab -->
@@ -86,7 +86,7 @@
                 </div>
 
                 <!-- Main risk table -->
-                <main-table :category-data="riskCategories" label='risk' v-on:update-points="updatePoints"></main-table>
+                <main-table :category-data="riskCategories" label='risk' v-on:update-points="updatePoints" v-on:update-all="updateAll"></main-table>
               </div>
 
           </div>

@@ -41,6 +41,23 @@ window.onload=function() {
       },
 
       resetAll() {
+        for (i = 0; i < problemPointsData.length; i++) {
+          problemPointsData[i].instancePoints = 0
+        }
+        for (i = 0; i < dataPointsData.length; i++) {
+          dataPointsData[i].instancePoints = 0
+        }
+        for (i = 0; i < riskPointsDataLow.length; i++) {
+          riskPointsDataLow[i].instancePoints = 0
+        }
+        for (i = 0; i < riskPointsDataModerate.length; i++) {
+          riskPointsDataModerate[i].instancePoints = 0
+        }
+        for (i = 0; i < riskPointsDataHigh.length; i++) {
+          riskPointsDataHigh[i].instancePoints = 0
+        }
+
+        this.$emit('update-all')
       }
     }
   })
@@ -90,6 +107,14 @@ window.onload=function() {
           }
         }
         this.computeComplexity()
+      },
+
+      updateAll() {
+        console.log("updateAll")
+        this.problemPoints = 0
+        this.dataPoints = 0
+        this.risk = 0
+        this.overallComplexity = ''
       },
 
       computeComplexity() {
