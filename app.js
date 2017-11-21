@@ -9,7 +9,7 @@ window.onload=function() {
       }
     },
     methods: {
-      onClick(selection) {
+      onClick (selection) {
         // Only require one selection to meet risk criteria
         if (selection.allowedPoints == null) {
           selection.instancePoints += 1
@@ -36,8 +36,8 @@ window.onload=function() {
         for (i = 0; i < this.categoryData.length; i++) {
           this.categoryData[i].instancePoints = 0
           this.points = 0
-          this.$emit('update-points', this.categoryData, this.label)
         }
+        this.$emit('update-points', this.categoryData, this.label)
       },
 
       resetAll() {
@@ -104,6 +104,8 @@ window.onload=function() {
             this.risk = 2
           } else if (this.riskLevel == 'high' && tempPoints > 0 && this.risk <= 3) {
             this.risk = 3
+          } else if (tempPoints == 0) {
+            this.risk = 0
           }
         }
         this.computeComplexity()
@@ -125,11 +127,14 @@ window.onload=function() {
           this.overallComplexity = 'moderate'
         } else if (this.meetsCriteria(2, 2, 1)) {
           this.overallComplexity = 'low'
+        } else {
+          this.overallComplexity = ''
         }
       },
 
       meetsCriteria(reqProbPoints, reqDataPoints, reqRisk) {
         var catMet = 0
+
         if (this.problemPoints >= reqProbPoints) {
           catMet += 1
         }
