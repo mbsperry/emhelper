@@ -1,13 +1,19 @@
 window.onload=function() {
 
   Vue.component('main-table', {
+    // template located in index.html as inline template
     template: '#main-table-template',
+
+    // need reference to data and know what type of data we are working with
+    // categoryData is passed as a reference to the globally defined object
     props: ['categoryData', 'label'],
+
     data: function() {
       return {
-        points: 0
+        points: 0   // currently tracking points does nothing
       }
     },
+
     methods: {
       onClick (selection) {
         // Only require one selection to meet risk criteria
@@ -24,10 +30,12 @@ window.onload=function() {
             }
         }
       },
+
       setRowBackground(index, selection) {
         if (selection.instancePoints > 0) {
           return "list-yellow"
         } else {
+          // only return gray for odd rows
           return (index & 1) ? "list-gray" : false
         }
       },
@@ -74,7 +82,9 @@ window.onload=function() {
       riskLevel: 'moderate',
       overallComplexity: ''
     },
+
     computed: {
+      // I think this is unused
       buttonsOrientation: function() {
         if (window.matchMedia( "(min-width: 510px)" ).matches ) {
           return "btn-group"
@@ -83,6 +93,7 @@ window.onload=function() {
         }
       }
     },
+
     methods: {
       updatePoints(categoryData, label) {
         var tempPoints = 0 
@@ -112,6 +123,7 @@ window.onload=function() {
       },
 
       updateAll() {
+        // Misnomer, this should be reset all
         this.problemPoints = 0
         this.dataPoints = 0
         this.risk = 0
@@ -119,8 +131,10 @@ window.onload=function() {
       },
 
       computeComplexity() {
+        // Each pass runs the meetsCriteria function with a different set of requirements
+        // to figure out what complexity current selections meets. Moves in descending
+        // order, stop once we find a match
 
-        // Do we meet high complexity criteria?
         if (this.meetsCriteria(4, 4, 3)) {
           this.overallComplexity = 'high'
         } else if (this.meetsCriteria(3, 3, 2)) {
@@ -146,6 +160,7 @@ window.onload=function() {
         }
 
 
+        // only requires 2 out of three categories to meet criteria
         if (catMet >= 2) {
           return true
         } else {
@@ -177,6 +192,8 @@ window.onload=function() {
 }
 
 /* ************** Data ****************** */
+
+// Global data
 
 problemPointsData = [
 {

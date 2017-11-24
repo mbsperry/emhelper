@@ -24,22 +24,22 @@
   </head>
 
       <!-- Define the main table component" -->
-<script type="text/x-template" id="main-table-template">
-      <div class="row ml-0 pb-3" style="width: 100%">
-        <div class="col font-weight-bold">Category</div>
+  <script type="text/x-template" id="main-table-template">
+    <div class="row ml-0 pb-3" style="width: 100%">
+      <div class="col font-weight-bold">Category</div>
       <div class="col-2 font-weight-bold text-right">Points</div>
-  <template v-for="(record, index) in categoryData">
-    <div class="row ml-0 pb-3 pt-3 main-list" :class="setRowBackground(index, record)" @click="onClick(record)" style="width: 100%">
-      <div class="col">{{ record.category }}</div>
-      <div class="col-2 text-right">{{ record.points }}</div>
+        <template v-for="(record, index) in categoryData">
+          <div class="row ml-0 pb-3 pt-3 main-list" :class="setRowBackground(index, record)" @click="onClick(record)" style="width: 100%">
+            <div class="col">{{ record.category }}</div>
+            <div class="col-2 text-right">{{ record.points }}</div>
+          </div>
+        </template>
+      <div class="row ml-0 p-4 justify-content-end" style="width: 100%">
+        <button type="button" class="btn btn-warning mr-2" @click="resetCategory">Reset Category</button>
+        <button type="button" class="btn btn-danger" @click="resetAll">Reset All</button>
+      </div>
     </div>
-  </template>
-    <div class="row ml-0 p-4 justify-content-end" style="width: 100%">
-      <button type="button" class="btn btn-warning mr-2" @click="resetCategory">Reset Category</button>
-      <button type="button" class="btn btn-danger" @click="resetAll">Reset All</button>
-    </div>
-  </div>
-</script>
+  </script>
 
   <body>
     <div class="container mw-100">
