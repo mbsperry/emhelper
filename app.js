@@ -75,7 +75,7 @@ window.onload=function() {
     data: {
       problemPoints: 0,
       dataPoints: 0,
-      risk: '',
+      risk: 0,
       problemPointsCategories: problemPointsData,
       dataPointsCategories: dataPointsData,
       riskCategories: riskPointsDataModerate,
@@ -97,17 +97,23 @@ window.onload=function() {
       // Iterate through each array and construct the summary sentence
         
         var items = ''
-        for (i = 0; i < problemPointsData.length; i++) {
-          if (problemPointsData[i].instancePoints > 0) {
-            var numItem = problemPointsData[i].instancePoints / problemPointsData[i].points
+
+        problemPointsData.forEach(function(problem) {
+          if (problem.instancePoints > 0) {
+            var numItem = problem.instancePoints / problem.points
+            var sentence = problem.sentence
+
+            if (numItem > 1) {
+              sentence = sentence.replace('problem', 'problems')
+            }
 
             if (items === '') {
-              items += numItem + ' ' + problemPointsData[i].sentence
+              items += numItem + ' ' + sentence
             } else {
-              items += '; ' + numItem + ' ' +  problemPointsData[i].sentence
+              items += '; ' + numItem + ' ' +  sentence
             }
           }
-        }
+        })
         return items
       },
 
@@ -124,8 +130,30 @@ window.onload=function() {
           }
         return items
       },
-
+      
       riskSummarySentence: function() {
+        var iterate = function(array) {
+          var items = ''
+            for (i = 0; i < array.length; i++) {
+              if (array[i].instancePoints > 0) {
+                if (items === '') {
+                  items += array[i].sentence
+                } else {
+                  items += '; ' + array[i].sentence
+                }
+              }
+            }
+          return items
+        }
+        if (this.risk === 1) {
+          return iterate(riskPointsDataLow)
+        } else if (this.risk === 2) {
+          return iterate(riskPointsDataModerate)
+        } else if (this.risk === 3) {
+          return iterate(riskPointsDataHigh)
+        } else {
+          return ''
+        }
       }
     },
 
@@ -321,46 +349,55 @@ var dataPointsData = [
 var riskPointsDataModerate = [
 {
   category: "One or more chronic illness, with mild exacerbation, progression, or side effects of treatment",
+  sentence: "One or more chronic illness, with mild exacerbation, progression, or side effects of treatment",
   points: 1,
   instancePoints:0
 },
 {
   category: "Two or more stable chronic illnesses",
+  sentence: "Two or more stable chronic illnesses",
   points: 1,
   instancePoints:0
 },
 {
   category: "Undiagnosed new problem, with uncertain prognosis, e.g., lump in breast",
+  sentence: "Undiagnosed new problem, with uncertain prognosis",
   points: 1,
   instancePoints: 0
 },
 {
   category: 'Acute illness, with systemic symptoms',
+  sentence: 'Acute illness, with systemic symptoms',
   points: 1,
   instancePoints:0
 },
 {
   category: 'Acute complicated injury, e.g., head injury, with brief loss of consciousness',
+  sentence: 'Acute complicated injury',
   points: 1,
   instancePoints:0
 },
 {
   category: 'Physiologic tests under stress, e.g., cardiac stress test, fetal contraction stress test',
+  sentence: 'Physiologic tests under stress',
   points: 1,
   instancePoints:0
 },
 {
   category: 'Prescription drug management',
+  sentence: 'Prescription drug management',
   points: 1,
   instancePoints:0
 },
 {
   category: 'IV fluids, with additives',
+  sentence: 'IV fluids, with additives',
   points: 1,
   instancePoints:0
 },
 {
   category: 'Closed treatment of fracture or dislocation, without manipulation',
+  sentence: 'Closed treatment of fracture or dislocation, without manipulation',
   points: 1,
   instancePoints:0
 }]
@@ -368,31 +405,37 @@ var riskPointsDataModerate = [
 var riskPointsDataHigh = [
 {
   category: 'One or more chronic illness, with severe exacerbation or progression',
+  sentence: 'One or more chronic illness, with severe exacerbation or progression',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'Acute or chronic illness or injury, which poses a threat to life or bodily function, e.g., multiple trauma, acute MI, pulmonary embolism, severe respiratory distress, progressive severe rheumatoid arthritis, psychiatric illness, with potential threat to self or others, peritonitis, ARF',
+  sentence: 'Acute or chronic illness or injury, which poses a threat to life or bodily function',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'An abrupt change in neurological status, e.g., seizure, TIA, weakness, sensory loss',
+  sentence: 'Abrupt change in neurological status',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'Parenteral controlled substances',
+  sentence: 'Parenteral controlled substances',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'Drug therapy requiring intensive monitoring for toxicity',
+  sentence: 'Drug therapy requiring intensive monitoring for toxicity',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'Decision not to resuscitate, or to de-escalate care because of poor prognosis',
+  sentence: 'Decision not to resuscitate, or to de-escalate care because of poor prognosis',
   points: 1,
   instancePoints: 0
 }]
@@ -400,26 +443,31 @@ var riskPointsDataHigh = [
 var riskPointsDataLow = [
 {
   category: 'Two or more self-limited or minor problems',
+  sentence: 'Two or more self-limited or minor problems',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'One stable chronic illness, e.g., well controlled HTN, DM2, cataract',
+  sentence: 'One stable chronic illness',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'Superficial needle biopsy',
+  sentence: 'Superficial needle biopsy',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'Over the counter drugs',
+  sentence: 'Over the counter drug management',
   points: 1,
   instancePoints: 0
 },
 {
   category: 'IV fluids, without additives',
+  sentence: 'IV fluids, without additives',
   points: 1,
   instancePoints: 0
 }]
