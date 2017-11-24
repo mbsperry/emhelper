@@ -32,17 +32,29 @@ body {
 }
 
 #copy-btn {
-  background: url(https://ssl.gstatic.com/images/icons/material/system/1x/content_copy_black_18dp.png) 2px 2px no-repeat;
-  width: 21px;
-  height: 21px;
-  opacity: 0.55;
+  background: url("Octicons-clippy.svg") no-repeat;
+  background-position: center;
+  background-size: 19px;
+  width: 25px;
+  height: 25px;
+  opacity: 0.0;
   border: transparent;
   position: absolute;
   bottom: 10px;
   right: 10px;
 }
 
+#summary:hover > #copy-btn, #copy-btn:hover {
+  opacity: 0.55;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
 #copy-btn:hover {
   opacity: 0.9 !important;
-  border: #c6c6c6!important;
+  box-shadow: 0px 1px 1px #00000038;
+  background-color: rgba(0,0,0,0.05);
+  border: #00000014 1px solid;
 }

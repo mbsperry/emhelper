@@ -1,6 +1,8 @@
 
 window.onload=function() {
 
+  // Utilize clipboard.js to copy summary sentence to clipboard. Dynamically build
+  // the sentence based on data in the main Vue object vm
   var clipboard = new Clipboard('.copy-btn', {
     text: function(trigger) {
       var summary = 'MDM: ' + vm.overallComplexity + ' complexity\n' + 'Problems: ' + vm.problemSummarySentence + '\nData: ' + vm.dataSummarySentence + '\nRisk: ' + vm.riskSummarySentence
@@ -9,6 +11,7 @@ window.onload=function() {
   })
 
 
+  // For debugging only
   clipboard.on('success', function(e) {
     console.info('Action:', e.action);
     console.info('Text:', e.text);
@@ -102,7 +105,8 @@ window.onload=function() {
       dataPointsCategories: dataPointsData,
       riskCategories: riskPointsDataModerate,
       riskLevel: 'moderate',
-      overallComplexity: ''
+      overallComplexity: '',
+      copyBtnActive: false
     },
 
     computed: {
@@ -271,11 +275,6 @@ window.onload=function() {
         if (this.riskLevel == btn) {
           return 'active'
         }
-      },
-
-      getSummary() {
-        var summary = 'MDM Complexity\n' + 'Problems: ' + this.problemSummarySentence + '\n Data: ' + this.dataSummarySentence + '\n Risk: ' + this.riskSummarySentence
-        console.log(summary)
       }
     }
   })
