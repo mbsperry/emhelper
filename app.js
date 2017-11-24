@@ -91,6 +91,41 @@ window.onload=function() {
         } else {
           return "btn-group-vertical"
         }
+      },
+
+      problemSummarySentence: function() {
+      // Iterate through each array and construct the summary sentence
+        
+        var items = ''
+        for (i = 0; i < problemPointsData.length; i++) {
+          if (problemPointsData[i].instancePoints > 0) {
+            var numItem = problemPointsData[i].instancePoints / problemPointsData[i].points
+
+            if (items === '') {
+              items += numItem + ' ' + problemPointsData[i].sentence
+            } else {
+              items += '; ' + numItem + ' ' +  problemPointsData[i].sentence
+            }
+          }
+        }
+        return items
+      },
+
+      dataSummarySentence: function() {
+        var items = ''
+          for (i = 0; i < dataPointsData.length; i++) {
+            if (dataPointsData[i].instancePoints > 0) {
+              if (items === '') {
+                items += dataPointsData[i].sentence
+              } else {
+                items += '; ' + dataPointsData[i].sentence
+              }
+            }
+          }
+        return items
+      },
+
+      riskSummarySentence: function() {
       }
     },
 
@@ -198,30 +233,35 @@ window.onload=function() {
 problemPointsData = [
 {
   category: 'Self-limited or minor (max 2)',
+  sentence: 'minor problem',
   points: 1,
   instancePoints: 0,
   allowedPoints: 2
 },
 {
   category: 'Established problem, stable or improving',
+  sentence: 'stable/improving established problem',
   points: 1,
   instancePoints: 0,
   allowedPoints: 5
 },
 {
   category: 'Established problem, worsening',
+  sentence: 'worsening established problem',
   points: 2,
   instancePoints: 0,
   allowedPoints: 5
 },
 {
   category: 'New problem, with no additional work-up planned (max 1)',
+  sentence: 'new problem without additional work-up planned',
   points: 3,
   instancePoints: 0,
   allowedPoints: 3
 },
 {
   category: 'New problem, with additional work-up planned',
+  sentence: 'new problem with additional work-up planned',
   points: 4,
   instancePoints: 0,
   allowedPoints: 5
@@ -230,42 +270,49 @@ problemPointsData = [
 var dataPointsData = [
 {
   category: "Review or order clinic lab tests",
+  sentence: 'clinic lab tests were reviewed or ordered',
   points: 1,
   instancePoints: 0,
   allowedPoints: 1
 },
 {
   category: 'Review or order radiology test',
+  sentence: 'radiology tests were reviewed or ordered',
   points: 1,
   instancePoints: 0,
   allowedPoints: 1
 },
 {
   category: 'Review or order medicine test (PFTs, EKG, echo)',
+  sentence: 'medicine tests were reviewed or ordered',
   points: 1,
   instancePoints: 0,
   allowedPoints: 1
 },
 {
   category: 'Discuss with performing physician',
+  sentence: 'results were discussed with performing physician',
   points: 1,
   instancePoints: 0,
   allowedPoints: 1
 },
 {
   category: 'Independent review of image, tracing, specimen',
+  sentence: 'tracing, image, or specimen was independently reviewed',
   points: 2,
   instancePoints: 0,
   allowedPoints: 2
 },
 {
   category: 'Decision to obtain old records',
+  sentence: 'decision was made to obtain old records',
   points: 1,
   instancePoints: 0,
   allowedPoints: 1
 },
 {
   category: 'Review and summation of old records',
+  sentence: 'old records were reviewed and summarized',
   points: 2,
   instancePoints: 0,
   allowedPoints: 2
