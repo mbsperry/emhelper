@@ -105,8 +105,7 @@ window.onload=function() {
       dataPointsCategories: dataPointsData,
       riskCategories: riskPointsDataModerate,
       riskLevel: 'moderate',
-      overallComplexity: '',
-      copyBtnActive: false
+      overallComplexity: ''
     },
 
     computed: {

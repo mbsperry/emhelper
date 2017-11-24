@@ -134,11 +134,8 @@
             </table>
           </div>
           <div class="row pb-4 justify-content-center">
-            <div class="col-8 align-text-right rounded" id="summary" style="background: #FFF" @mouseenter="copyBtnActive = true" @mouseleave="copyBtnActive = false">
-              <button class="copy-btn" id="copy-btn" data-clipboard-action="copy">
-               <!--  
-                :class="copyBtnActive ? 'visible' : 'invisible'"></button>
-               --> </button>
+            <div class="col-8 align-text-right rounded" id="summary" style="background: #FFF">
+              <button class="copy-btn" id="copy-btn" data-clipboard-action="copy"></button>
               <small class="text-muted">
                 <p class="mb-2">MDM Complexity</p>
                 <p class="mb-2">Problems: {{ problemSummarySentence }}</p>
