@@ -31,4 +31,18 @@ body {
   border-right: 2px solid #e9ecef !important;
 }
 
+#copy-btn {
+  background: url(https://ssl.gstatic.com/images/icons/material/system/1x/content_copy_black_18dp.png) 2px 2px no-repeat;
+  width: 21px;
+  height: 21px;
+  opacity: 0.55;
+  border: transparent;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
 
+#copy-btn:hover {
+  opacity: 0.9 !important;
+  border: #c6c6c6!important;
+}

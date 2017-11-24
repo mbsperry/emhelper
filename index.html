@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="googlebot" content="noindex, nofollow">
 
+    <!-- Load clipboard.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 
     <!-- Load Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -133,11 +135,12 @@
           </div>
           <div class="row pb-4 justify-content-center">
             <div class="col-8 align-text-right rounded" style="background: #FFF">
+              <button class="copy-btn" id="copy-btn" data-clipboard-action="copy"></button>
               <small class="text-muted">
-                <p>MDM Complexity</p>
-                <p>Problems: {{ problemSummarySentence }}</p>
-                <p>Data: {{ dataSummarySentence }}</p>
-                <p>Risk: {{ riskSummarySentence }}</p>
+                <p class="mb-2">MDM Complexity</p>
+                <p class="mb-2">Problems: {{ problemSummarySentence }}</p>
+                <p class="mb-2">Data: {{ dataSummarySentence }}</p>
+                <p class="mb-2">Risk: {{ riskSummarySentence }}</p> 
               </small>
             </div>
           </div>

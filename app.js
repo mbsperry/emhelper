@@ -1,4 +1,26 @@
+
 window.onload=function() {
+
+  var clipboard = new Clipboard('.copy-btn', {
+    text: function(trigger) {
+      var summary = 'MDM: ' + vm.overallComplexity + ' complexity\n' + 'Problems: ' + vm.problemSummarySentence + '\nData: ' + vm.dataSummarySentence + '\nRisk: ' + vm.riskSummarySentence
+      return summary 
+    }
+  })
+
+
+  clipboard.on('success', function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
+
+    e.clearSelection();
+  });
+
+  clipboard.on('error', function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+  });
 
   Vue.component('main-table', {
     // template located in index.html as inline template
@@ -249,6 +271,11 @@ window.onload=function() {
         if (this.riskLevel == btn) {
           return 'active'
         }
+      },
+
+      getSummary() {
+        var summary = 'MDM Complexity\n' + 'Problems: ' + this.problemSummarySentence + '\n Data: ' + this.dataSummarySentence + '\n Risk: ' + this.riskSummarySentence
+        console.log(summary)
       }
     }
   })
